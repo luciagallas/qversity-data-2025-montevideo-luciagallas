@@ -1,28 +1,11 @@
--- models/silver/silver_customers.sql
-
-SELECT
+WITH services_data AS (
+  SELECT
     customer_id,
-    first_name,
-    last_name,
-    email,
-    phone_number,
-    age,
-    country,
-    city,
-    operator,
-    plan_type,
-    monthly_data_gb,
-    monthly_bill_usd,
-    registration_date,
-    status,
-    device_brand,
-    device_model,
-    record_uuid,
-    last_payment_date,
-    credit_limit,
-    data_usage_current_month,
-    latitude,
-    longitude,
-    credit_score,
-    ingestion_timestamp
-FROM bronze.customers_raw
+    jsonb_array_elements_text(contracted_services::jsonb) AS service
+  FROM {{ source('bronze', 'customers_raw') }}
+  WHERE jsonb_typeof(contracted_services::jsonb) = 'array'
+)
+SELECT
+  customer_id,
+  service
+FROM services_data
