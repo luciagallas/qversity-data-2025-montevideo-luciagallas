@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: bronze
+    schema: bronze
+    tables:
+      - name: customers_raw
+        description: "Raw ingested customer data from S3 via Airflow"
+        columns:
+          - name: customer_id
+            description: "Unique ID for each customer"
+          - name: first_name
+          - name: last_name
+          - name: email
+          - name: phone_number
+          - name: age
+          - name: country
+          - name: city
+          - name: operator
+          - name: plan_type
+          - name: monthly_data_gb
+          - name: monthly_bill_usd
+          - name: registration_date
+          - name: status
+          - name: device_brand
+          - name: device_model
+          - name: record_uuid
+          - name: last_payment_date
+          - name: credit_limit
+          - name: data_usage_current_month
+          - name: latitude
+          - name: longitude
+          - name: payment_history
+            description: "Array of payment events with date, amount and status"
+          - name: contracted_services
+            description: "List of services the customer has contracted (e.g. SMS, Internet)"
+          - name: credit_score
+          - name: ingestion_timestamp
